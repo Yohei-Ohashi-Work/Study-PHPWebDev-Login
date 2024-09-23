@@ -28,6 +28,18 @@
  * wd3-2132 -> NG
  * 124-56789 -> NG
  */
+echo '<h2>郵便番号</h2>';
+$zipList = ['001-0012', '001-001', '2.2-3042', 'wd3-2132', '124-56789'];
+foreach ($zipList as $zip) {
+    if (preg_match('/^\d{3}-\d{4}$/', $zip, $result)) {
+        echo '<div>郵便番号が正しいです。</div>';
+        echo '<pre>';
+        print_r($result);
+        echo '</pre>';
+    } else {
+        echo '<div>郵便番号が不正です。</div>';
+    }
+}
 
 
 /**
@@ -39,9 +51,52 @@
  * example-0.00@ex.co.jp -> OK
  * example/0.00@ex.co.jp -> NG
  */
-
+echo '<h2>Email</h2>';
+$emailList = ['example000@gmail.com', 'example-0.00@gmail.com', 'example-0.00@ex.co.jp', 'example/0.00@ex.co.jp'];
+foreach ($emailList as $email) {
+    if (preg_match('/^[\w.\-]+@[\w\-]+\.[\w\.\-]+$/', $email, $result)) {
+        echo '<div>メールアドレスが正しいです。</div>';
+        echo '<pre>';
+        print_r($result);
+        echo '</pre>';
+    } else {
+        echo '<div>メールアドレスが不正です。</div>';
+    }
+}
 
 /**
  * HTML
  * 見出しタグ(h1~h6)の中身のみ取得してみよう。
  */
+echo '<h2>HTML</h2>';
+$html = '<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <h1>見出し１</h1>   
+
+    <h2>見出し２</h2>   
+
+    <h3>見出し３</h3>   
+
+    <header>ヘッダー</header>
+
+</body>
+
+</html>';
+if (preg_match_all('/<h[1-6]>(.+)<\/h[1-6]>/', $html, $result)) {
+    echo '<div>OK</div>';
+    echo '<pre>';
+    print_r($result[count($result) - 1]);
+    echo '</pre>';
+} else {
+    echo '<div>NG</div>';
+}
